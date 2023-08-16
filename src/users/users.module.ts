@@ -9,12 +9,15 @@ import { UpdateUserMiddleware } from '../middleware/validators/users/updateUser'
 import { Heimdall } from '../middleware/heimdall';
 import { DelayMiddleware } from '../middleware/delayed';
 import { IsAdmin } from '../middleware/isAdmin';
+import { MailModule } from 'src/nest-mailer/mail.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGOURL),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MailModule,
   ],
+
   controllers: [UsersController],
 
   providers: [UsersService],

@@ -24,7 +24,6 @@ class ArgonService {
     password: string,
     hashPassword: string,
   ): Promise<boolean> => {
-    console.log({ hashPassword, password });
     const passwordsMatch = await argon2.verify(hashPassword, password);
     return passwordsMatch;
   };

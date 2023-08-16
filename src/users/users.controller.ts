@@ -20,7 +20,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { CreateNewUserMiddleware } from '../middleware/validators/users/createNewUser';
 import { CreateNewUserByClient } from '../middleware/validators/users/createNewUserByClient';
-
+import { MailService } from '../nest-mailer/mail.service';
 import { Heimdall } from '../middleware/heimdall';
 import { DelayMiddleware } from '../middleware/delayed';
 import { IsAdmin } from '../middleware/isAdmin';
@@ -36,10 +36,18 @@ interface UserRequest {
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly mailService: MailService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Post('login')
   async login(@Body() loginUserDto: LoginUserDto) {
+    const to = loginUserDto.email;
+    const subject = 'Login successful';
+    const html = '<h1>WelCome to my Project</h1>';
+
+    await this.mailService.sendMail(to, subject, html);
     const foundedUser = await this.usersService.findOneWithEmail(
       loginUserDto.email,
     );
