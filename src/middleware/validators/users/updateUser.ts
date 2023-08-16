@@ -10,15 +10,15 @@ import * as Joi from 'joi';
 import { ErrorHandler } from '../../../handler/error.handler';
 
 @Injectable()
-export class CreateNewUserMiddleware implements NestMiddleware {
+export class UpdateUserMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const schema = Joi.object({
-      email: Joi.string().email().required(),
-      first_name: Joi.string().required(),
-      last_name: Joi.string().required(),
+      email: Joi.string().email().optional(),
+      first_name: Joi.string().optional(),
+      last_name: Joi.string().optional(),
       avatar: Joi.string().optional(),
-      password: Joi.string().max(25).min(6).required(),
-      role: Joi.string().valid('CLIENT', 'ADMIN').required(),
+      password: Joi.string().max(25).min(6).optional(),
+      role: Joi.string().valid('CLIENT', 'ADMIN').optional(),
     });
 
     const { error } = schema.validate(req.body, { abortEarly: false });
