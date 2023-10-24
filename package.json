@@ -6,19 +6,15 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test-all": "npm run test-app-controller && npm run test-utils && npm run test-auth && npm run test-handlers && npm run test-resources && npm run test-users",
+    "test-app-controller": "npx mocha --require ts-node/register ./src/app.controller.spec.ts",
+    "test-utils": "npx mocha --require ts-node/register src/utils/argon.spec.ts && npx mocha --require ts-node/register src/utils/jwt.spec.ts",
+    "test-auth": " npx mocha --require ts-node/register src/auth/auth.controller.spec.ts && npx mocha --require ts-node/register src/auth/auth.service.spec.ts",
+    "test-handlers": "npx mocha --require ts-node/register src/handler/handler.spec.ts",
+    "test-resources": "npx mocha --require ts-node/register src/resource/resource.spec.ts --timeout 5000",
+    "test-users": "npx mocha --require ts-node/register src/users/users.spec.ts --timeout 5000"
   },
   "dependencies": {
     "@nestjs/common": "^9.4.3",
@@ -32,7 +28,6 @@
     "argon2": "^0.31.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
-    "dotenv": "^16.3.1",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^6.6.0",
@@ -47,42 +42,41 @@
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
-    "@nestjs/testing": "^9.0.0",
+    "@nestjs/testing": "^9.4.3",
+    "@types/chai": "^4.3.9",
+    "@types/chai-as-promised": "^7.1.7",
     "@types/express": "^4.17.13",
     "@types/jest": "28.1.8",
+    "@types/mocha": "^10.0.3",
     "@types/node": "^16.0.0",
+    "@types/nodemailer": "^6.4.13",
+    "@types/sinon": "^10.0.20",
+    "@types/sinon-chai": "^3.2.11",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "chai": "^4.3.10",
+    "chai-as-promised": "^7.1.1",
+    "chai-subset": "^1.6.0",
+    "dotenv": "^16.3.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "git-commit-msg-linter": "^4.1.3",
     "jest": "28.1.3",
+    "mocha": "^10.2.0",
+    "mockgoose": "^8.0.4",
+    "mongodb-memory-server": "^9.0.1",
     "prettier": "^2.3.2",
+    "sinon": "^17.0.0",
+    "sinon-chai": "^3.7.0",
     "source-map-support": "^0.5.20",
     "supertest": "^6.1.3",
     "ts-jest": "28.0.8",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
-    "tsconfig-paths": "4.1.0",
-    "typescript": "^4.7.4"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.9.5"
   }
 }

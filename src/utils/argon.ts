@@ -12,7 +12,7 @@ class ArgonService {
 
   hashPassword = async (password: string): Promise<string> => {
     const hashedPassword = await argon2.hash(password, {
-      type: argon2.argon2id, // You can choose the type you prefer
+      type: argon2.argon2id,
       memoryCost: this.memoryCost,
       parallelism: this.parallelism,
       hashLength: this.hashLength,

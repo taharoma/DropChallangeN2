@@ -27,8 +27,8 @@ import { IsAdmin } from '../middleware/isAdmin';
 import ArgonService from '../utils/argon';
 import generateToken from '../jwt/generateToken';
 import { ErrorHandler, LoginResponseHandler } from '../handler';
-import { paginateResponseHandler } from 'src/handler/paginateResponseHandler';
-import { singleResponseHandler } from 'src/handler/singleResponseHandler';
+import { paginateResponseHandler } from '../handler/paginateResponseHandler';
+import { singleResponseHandler } from '../handler/singleResponseHandler';
 interface UserRequest {
   userId: string;
   role: string;

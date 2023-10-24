@@ -19,7 +19,7 @@ export class ResourceService {
     return this.resourceModel.countDocuments();
   }
 
-  async findWithPagination(page: number, perPage: number) {
+  async findWithPagination(page: number, perPage: number): Promise<Resource[]> {
     const skip = (page - 1) * perPage;
     return this.resourceModel.find().skip(skip).limit(perPage);
   }

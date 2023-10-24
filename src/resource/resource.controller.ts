@@ -11,8 +11,9 @@ import {
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { ResourceService } from './resource.service';
 import { ErrorHandler, LoginResponseHandler } from '../handler';
-import { paginateResponseHandler } from 'src/handler/paginateResponseHandler';
-import { singleResponseHandler } from 'src/handler/singleResponseHandler';
+import { paginateResponseHandler } from '../handler/paginateResponseHandler';
+import { singleResponseHandler } from '../handler/singleResponseHandler';
+
 @Controller('resource')
 export class ResourceController {
   constructor(private readonly resourceService: ResourceService) {}

@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import CustomRequest from './custom-request.interface'; // Import the custom request interface
+
 import tokenVerify from '../jwt/tokenVerify';
 import tokenDecode from '../jwt/tokenDecode';
 import { UsersService } from '../users/users.service';
@@ -11,7 +13,7 @@ interface TokenPayload {
 export class Heimdall implements NestMiddleware {
   constructor(private readonly usersService: UsersService) {}
 
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(req: CustomRequest, res: Response, next: NextFunction) {
     try {
       const accessToken = req.headers.authorization?.split(' ')[1];
       if (!accessToken) return res.status(403).json({ error: 'AUTH_FAILED' });
